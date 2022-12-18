@@ -141,3 +141,29 @@ func (u *RolePermissionStatus) Scan(src interface{}) error {
 	*u = RolePermissionStatus(cloneBytes(source))
 	return nil
 }
+
+type RefreshTokenStatus string
+
+const (
+	RefreshTokenStatusActive   = RefreshTokenStatus("ACTIVE")
+	RefreshTokenStatusInactive = RefreshTokenStatus("EXPIRED")
+)
+
+func (u RefreshTokenStatus) Value() (driver.Value, error) {
+	return string(u), nil
+}
+
+func (u *RefreshTokenStatus) Scan(src interface{}) error {
+	if src == nil {
+		return nil
+	}
+	source, ok := src.([]byte)
+	if !ok {
+		return fmt.Errorf("incompatible data type %v, data must be bytes", reflect.TypeOf(src))
+	}
+	if len(source) == 0 {
+		return nil
+	}
+	*u = RefreshTokenStatus(cloneBytes(source))
+	return nil
+}

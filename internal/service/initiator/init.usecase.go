@@ -14,6 +14,7 @@ func (i *initiator) InitUsecase(domain *service.Domain, extInterface *service.In
 		UserRepo:   domain.User,
 		Permission: domain.Permission,
 		Role:       domain.Role,
+		Token:      domain.Token,
 	})
 	authorization := authorization.New(&authorization.Args{
 		User:       domain.User,

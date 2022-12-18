@@ -40,3 +40,12 @@ func (p *Public) HandleLogout(w http.ResponseWriter, r *http.Request) response.H
 	}
 	return response.NewJSONResponse().SetMessage("Logged out")
 }
+
+func (p *Public) HandleRefreshToken(w http.ResponseWriter, r *http.Request) response.HTTPResponse {
+	token := r.FormValue("refresh_token")
+	resp, err := p.service.Usecase.Authentication.RefreshToken(r.Context(), token)
+	if err != nil {
+		return response.NewJSONResponse().SetError(err)
+	}
+	return response.NewJSONResponse().SetData(resp)
+}

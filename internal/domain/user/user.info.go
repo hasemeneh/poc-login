@@ -58,3 +58,17 @@ func (r *repo) ValidatePassword(ctx context.Context, user *models.User, password
 func (r *repo) RevokeToken(ctx context.Context, token string) error {
 	return r.cache.RemoveUserToken(token)
 }
+
+func (r *repo) GetUserByUserID(ctx context.Context, userID int64) (*models.User, error) {
+	user, err := r.queries.FetchUserByID(ctx, nil, userID)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, custerr.ErrUserNotFound
+		}
+		return nil, err
+	}
+	if user.Status == constants.UserStatusInactive {
+		return nil, custerr.ErrInactiveUser
+	}
+	return user, nil
+}

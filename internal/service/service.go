@@ -23,6 +23,7 @@ type Domain struct {
 	User       repository.User
 	Permission repository.Permission
 	Role       repository.Role
+	Token      repository.Token
 }
 type Basic struct {
 	DB    *database.Store

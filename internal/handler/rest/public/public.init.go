@@ -25,6 +25,7 @@ func (p *Public) Register(rr router.Registrator) {
 	r.POST("/auth/login", p.HandleAuthLogin)
 	r.POST("/auth/logout", p.HandleLogout)
 	r.POST("/auth/register", p.HandleAuthRegister)
+	r.POST("/auth/refresh", p.HandleRefreshToken)
 	r.GET("/access/list", p.HandleGetAccessList)
 }
 

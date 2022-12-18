@@ -15,6 +15,7 @@ type Resource interface {
 	Insert(ctx context.Context, dbTx database.DBTX, m *models.User) (int64, error)
 	FetchUserByAuthID(ctx context.Context, dbTx database.DBTX, authID string) (*models.User, error)
 	FetchUserForInternal(ctx context.Context, rf pagespecifier.ResultFilter) ([]*models.User, int64, error)
+	FetchUserByID(ctx context.Context, dbTx database.DBTX, userID int64) (*models.User, error)
 }
 
 func NewUserQuery(db *database.Store) Resource {
@@ -43,5 +44,13 @@ const selectUserByAuthID = "SELECT id,auth_id,password,status FROM rbac_user WHE
 func (r *resource) FetchUserByAuthID(ctx context.Context, dbTx database.DBTX, authID string) (*models.User, error) {
 	resp := &models.User{}
 	err := r.db.GetSelectContext(dbTx).GetContext(ctx, resp, selectUserByAuthID, authID)
+	return resp, err
+}
+
+const selectUserID = "SELECT id,auth_id,password,status FROM rbac_user WHERE id = ?"
+
+func (r *resource) FetchUserByID(ctx context.Context, dbTx database.DBTX, userID int64) (*models.User, error) {
+	resp := &models.User{}
+	err := r.db.GetSelectContext(dbTx).GetContext(ctx, resp, selectUserID, userID)
 	return resp, err
 }

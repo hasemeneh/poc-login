@@ -3,6 +3,7 @@ package initiator
 import (
 	"github.com/hasemeneh/poc-login/internal/domain/permission"
 	"github.com/hasemeneh/poc-login/internal/domain/role"
+	"github.com/hasemeneh/poc-login/internal/domain/token"
 	"github.com/hasemeneh/poc-login/internal/domain/user"
 	"github.com/hasemeneh/poc-login/internal/service"
 )
@@ -20,9 +21,14 @@ func (i *initiator) InitDomain(basic *service.Basic) *service.Domain {
 		Redis: basic.Cache,
 		DB:    basic.DB,
 	})
+	token := token.New(&token.Args{
+		Redis: basic.Cache,
+		DB:    basic.DB,
+	})
 	return &service.Domain{
 		User:       user,
 		Permission: permission,
 		Role:       role,
+		Token:      token,
 	}
 }

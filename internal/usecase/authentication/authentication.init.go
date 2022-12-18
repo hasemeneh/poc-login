@@ -11,12 +11,14 @@ type module struct {
 	UserRepo   repository.User
 	permission repository.Permission
 	role       repository.Role
+	token      repository.Token
 }
 type Args struct {
 	Cfg        *config.MainConfig
 	UserRepo   repository.User
 	Permission repository.Permission
 	Role       repository.Role
+	Token      repository.Token
 }
 
 func New(o *Args) definition.Authentication {
@@ -25,5 +27,6 @@ func New(o *Args) definition.Authentication {
 		Cfg:        o.Cfg,
 		permission: o.Permission,
 		role:       o.Role,
+		token:      o.Token,
 	}
 }

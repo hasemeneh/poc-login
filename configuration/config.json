@@ -3,8 +3,8 @@
         "secret":"KyxNJS4wZMVOmausmm9BpYjcRx0Jhyyi"
     },
     "db_connection":{
-        "master":"user:keepthissecretbetweenus@tcp(poc-login-db:3306)/poc-login-db?parseTime=true&loc=Local",
-        "slave":"user:keepthissecretbetweenus@tcp(poc-login-db:3306)/poc-login-db?parseTime=true&loc=Local"
+        "master":"poc-login:poc-login@tcp(poc-login-db:3306)/poc-login-db?parseTime=true&loc=Local",
+        "slave":"poc-login:poc-login@tcp(poc-login-db:3306)/poc-login-db?parseTime=true&loc=Local"
     },
 
     "cache_connection" :{
